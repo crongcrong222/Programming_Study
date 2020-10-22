@@ -9,20 +9,20 @@ def solution(n, results):
         lose[j].add(i)
     for i in range(1,n+1):
         for lo in win[i]:
-            #ÀÌ±ä »ç¶÷ÀÇ »ó´ë¹æÀ» 1°³ ¾¿ ²¨³¿
+            #ì´ê¸´ ì‚¬ëžŒì˜ ìƒëŒ€ë°©ì„ 1ê°œ ì”© êº¼ëƒ„
             lose[lo] |= lose[i]
-            #ÀüÃ¼¸¦ ½ºÄµÇÏ¸é¼­ ÀÌ±ä »ç¶÷ÀÇ »ó´ë¹æÀÌ Áø »ç¶÷ ¸®½ºÆ®¸¦ ²¨³½ »ó´ë¹æ Áø ¸®½ºÆ®¿¡ Ãß°¡
+            #ì „ì²´ë¥¼ ìŠ¤ìº”í•˜ë©´ì„œ ì´ê¸´ ì‚¬ëžŒì˜ ìƒëŒ€ë°©ì´ ì§„ ì‚¬ëžŒ ë¦¬ìŠ¤íŠ¸ë¥¼ êº¼ë‚¸ ìƒëŒ€ë°© ì§„ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
         for wi in lose[i]:
-            #Áø »ç¶÷ÀÇ »ó´ë¹æÀ» 1°³ ¾¿ ²¨³¿
+            #ì§„ ì‚¬ëžŒì˜ ìƒëŒ€ë°©ì„ 1ê°œ ì”© êº¼ëƒ„
             win[wi] |= win[i]
-            #ÀüÃ¼¸¦ ½ºÄµÇÏ¸é¼­ Áø »ç¶÷ÀÇ »ó´ë¹æÀÌ ÀÌ±ä »ç¶÷ ¸®½ºÆ®¸¦ ²¨³½ »ó´ë¹æ ÀÌ±ä ¸®½ºÆ®¿¡ Ãß°¡
+            #ì „ì²´ë¥¼ ìŠ¤ìº”í•˜ë©´ì„œ ì§„ ì‚¬ëžŒì˜ ìƒëŒ€ë°©ì´ ì´ê¸´ ì‚¬ëžŒ ë¦¬ìŠ¤íŠ¸ë¥¼ êº¼ë‚¸ ìƒëŒ€ë°© ì´ê¸´ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
 
 
     #print(win)
     #print(lose)
     result = [len(win[i]|lose[i]) for i in range(1,n+1)]
     answer = result.count(n-1)
-    #ÀÚ±â ÀÚ½ÅÀ» Á¦¿ÜÇÏ¿© ´ë°áÇÑ »ç¶÷µéÀÇ ¼ö¸¦ ¼¼¾î¼­ Ä«¿îÆ®
+    #ìžê¸° ìžì‹ ì„ ì œì™¸í•˜ì—¬ ëŒ€ê²°í•œ ì‚¬ëžŒë“¤ì˜ ìˆ˜ë¥¼ ì„¸ì–´ì„œ ì¹´ìš´íŠ¸
     return answer
 
 

@@ -1,38 +1,29 @@
-#https://programmers.co.kr/learn/courses/30/lessons/49189
-
-
 from collections import defaultdict,deque
 
-def bfs(graph,start,visited,path):
-    queue = deque([start])
-    #Ã³À½ ¹æ¹®ÇÒ °÷À» deque¿¡ ³ÖÀ½
-    
-    
-    while(queue):
-        n = queue.popleft()
-        visited[start] =True
-        #¹æ¹®À» ÇÏ°í(queue¿¡¼­ ²¨³»°í) ¹æ¹® Ã¼Å©¸¦ ÇÔ
-        for i in graph[n]:
-            #ÇØ´ç ¹æ¹®ÇÑ ±×·¡ÇÁ¿Í ¿¬°áµÈ ´Ù¸¥ ±×·¡ÇÁ ¼ıÀÚ(³ëµå)¸¦ ÇÏ³ª¾¿ ²¨³»¼­ È®ÀÎ
-            if(visited[i] == False):
-                #¸¸¾à ÇØ´ç ¼ıÀÚ(³ëµå)¸¦ ¹æ¹®ÇÏÁö ¾Ê¾ÒÀ¸¸é
-                queue.append(i)
-                visited[i] = True
-                #¹æ¹® ´ë±â¿­(queue)¿¡ Ãß°¡ÇÏ°í ¹æ¹® ¿©ºÎ¸¦ Ã¼Å©
-                path[i] = path[n] + 1
-                #ÇØ´ç ±×·¡ÇÁ ¼ıÀÚ(³ëµå)¿¡ ¹æ¹® È½¼ö¸¦ Áõ°¡½ÃÅ´
+def solution(n, results):
+    answer = 0
+    win = defaultdict(set)
+    lose = defaultdict(set)
+    for i,j in results:
+        win[i].add(j)
+        lose[j].add(i)
+    for i in range(1,n+1):
+        for lo in win[i]:
+            #ì´ê¸´ ì‚¬ëŒì˜ ìƒëŒ€ë°©ì„ 1ê°œ ì”© êº¼ëƒ„
+            lose[lo] |= lose[i]
+            #ì „ì²´ë¥¼ ìŠ¤ìº”í•˜ë©´ì„œ ì´ê¸´ ì‚¬ëŒì˜ ìƒëŒ€ë°©ì´ ì§„ ì‚¬ëŒ ë¦¬ìŠ¤íŠ¸ë¥¼ êº¼ë‚¸ ìƒëŒ€ë°© ì§„ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
+        for wi in lose[i]:
+            #ì§„ ì‚¬ëŒì˜ ìƒëŒ€ë°©ì„ 1ê°œ ì”© êº¼ëƒ„
+            win[wi] |= win[i]
+            #ì „ì²´ë¥¼ ìŠ¤ìº”í•˜ë©´ì„œ ì§„ ì‚¬ëŒì˜ ìƒëŒ€ë°©ì´ ì´ê¸´ ì‚¬ëŒ ë¦¬ìŠ¤íŠ¸ë¥¼ êº¼ë‚¸ ìƒëŒ€ë°© ì´ê¸´ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
 
-def solution(n, edge):
-    graph = defaultdict(list)
-    visited = [False for i in range(n+1)]
-    #¹æ¹® ¿©ºÎ¸¦ Ã¼Å©ÇÏ´Â ¸®½ºÆ® »ı¼º
-    for i,j in edge:
-        graph[i].append(j)
-        graph[j].append(i)
-    #¹æ¹® ³ëµå¸¦ °¢°¢ Ãß°¡ÇÔ
-    path = [0 for i in range(n+1)]
-    bfs(graph,1,visited,path)
-    print(path)
-    return path.count(max(path))
 
-print(solution(6,[[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]))
+    #print(win)
+    #print(lose)
+    result = [len(win[i]|lose[i]) for i in range(1,n+1)]
+    answer = result.count(n-1)
+    #ìê¸° ìì‹ ì„ ì œì™¸í•˜ì—¬ ëŒ€ê²°í•œ ì‚¬ëŒë“¤ì˜ ìˆ˜ë¥¼ ì„¸ì–´ì„œ ì¹´ìš´íŠ¸
+    return answer
+
+
+print(solution(5,[[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]))
