@@ -20,3 +20,4 @@ doc/*.txt
 
 # ignore all .pdf files in the doc/ directory
 doc/**/*.pdf
+nhn1.cpp
