@@ -1,13 +1,13 @@
 from collections import defaultdict
 import copy
 visit = []
-def bfs_graph(tickets,graph,queue):
+def dfs_graph(tickets,graph,queue):
     global visit
 
     while(queue):
         n, path = queue.pop(0)
         if(len(path) - 1 == len(tickets)):
-            #print(path)
+            print(path)
             visit.append(path)
             return
         else:
@@ -17,7 +17,7 @@ def bfs_graph(tickets,graph,queue):
                 queue.append((next,path + [next]))
                 tmp_graph[n].remove(next)
                 #방문한 티켓 삭제
-                bfs_graph(tickets,tmp_graph,queue)
+                dfs_graph(tickets,tmp_graph,queue)
 
 
 
@@ -26,12 +26,12 @@ def solution(tickets):
     tmp = []
     for i in tickets:
         graph[i[0]].append(i[1])
-    lentmp = len(tmp)
+
     for k in graph.keys():
         graph[k].sort()
     start = "ICN"
     queue = [(start,[start])]
-    bfs_graph(tickets,graph,queue)
+    dfs_graph(tickets,graph,queue)
     #print("answer",visit)
     visit.sort()
     return visit[0]
